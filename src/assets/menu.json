@@ -1,0 +1,404 @@
+{
+  "Bhilai Biryani House": {
+    "French_Fries": {
+      "name": "French Fries",
+      "price": [70]
+    },
+    "Veg_manchurian": {
+      "name": "Veg Manchurian",
+      "price": [100]
+    },
+    "Gobhi_chilly": {
+      "name": "Gobhi Chilly",
+      "price": [130]
+    },
+    "paneer_chilly": {
+      "name": "Paneer Chilly",
+      "price": [150]
+    },
+    "paneer_machurian": {
+      "name": "paneer machurian",
+      "price": [160]
+    },
+    "paneer_65": {
+      "name": "paneer 65",
+      "price": [160]
+    },
+    "mushroom_chilly": {
+      "name": "mushroom chilly",
+      "price": [140]
+    },
+    "pepper_manchurian": {
+      "name": "pepper manchurian",
+      "price": [120]
+    },
+    "paneer_majestic": {
+      "name": "paneer majestic",
+      "price": [180]
+    },
+    "baby_corn": {
+      "name": "baby corn",
+      "price": [140]
+    },
+    "corn_chilly": {
+      "name": "corn chilly",
+      "price": [120]
+    },
+    "peanut_kebab": {
+      "name": "peanut kebab",
+      "price": [160]
+    },
+    "honey_chilly_potato": {
+      "name": "honey chilly potato",
+      "price": [150]
+    },
+    "spring_roll": {
+      "name": "spring roll",
+      "price": [120]
+    },
+    "shanghai_roll": {
+      "name": "shanghai roll",
+      "price": [140]
+    },
+    "cheese_ball": {
+      "name": "cheese ball",
+      "price": [150]
+    }
+  },
+  "chef_special": {
+    "coatted_cheese_kabab": {
+      "name": "coatted cheese kabab",
+      "price": [180]
+    },
+    "paneer_cashew": {
+      "name": "paneer cashew",
+      "price": [180]
+    },
+    "Paneer_redbull": {
+      "name": "Paneer redbull",
+      "price": [180]
+    },
+    "paneer_basket": {
+      "name": "paneer basket",
+      "price": [180]
+    },
+    "gold_coin": {
+      "name": "gold coin",
+      "price": [180]
+    },
+    "mushroom_kurkure": {
+      "name": "mushroom kurkure",
+      "price": [180]
+    },
+    "dahi_ke_sholey": {
+      "name": "dahi ke sholey",
+      "price": [220]
+    },
+    "crunchey_chicken": {
+      "name": "crunchey chicken",
+      "price": [160]
+    },
+    "chicken_popcorn": {
+      "name": "chicken popcorn",
+      "price": [160]
+    },
+    "chicken_nuggets": {
+      "name": "chicken nuggets",
+      "price": [220]
+    },
+    "chicken_redbull": {
+      "name": "chicken redbull",
+      "price": [200]
+    },
+    "chicken_basket": {
+      "name": "chicken basket",
+      "price": [200]
+    },
+    "rohu_fish_fry": {
+      "name": "rohu fish fry",
+      "price": [150]
+    }
+  },
+  "non veg starter": {
+    "chicken_chilly_bone": {
+      "name": "chicken chilly bone",
+      "price": [140]
+    },
+    "chicken_pokoda": {
+      "name": "chicken pokoda",
+      "price": [180]
+    },
+    "chicken_roast": {
+      "name": "chicken roast",
+      "price": [180]
+    },
+    "chicken_chilly_roast": {
+      "name": "chicken chilly roast",
+      "price": [130]
+    },
+    "chicken_manchurian": {
+      "name": "chicken manchurian",
+      "price": [160]
+    },
+    "chicken_65": {
+      "name": "chicken 65",
+      "price": [180]
+    },
+    "chicken_garlic": {
+      "name": "chicken garlic",
+      "price": [180]
+    },
+    "chicken_lollypop": {
+      "name": "chicken lollypop",
+      "price": [220]
+    },
+    "chicken_spring_roll": {
+      "name": "chicken spring roll",
+      "price": [150]
+    },
+    "chicken_shanghai_roll": {
+      "name": "chicken shanghai roll",
+      "price": [170]
+    },
+    "lemon_corriender_chicken": {
+      "name": "lemon corriender chicken",
+      "price": [180]
+    },
+    "fish_finger": {
+      "name": "fish finger",
+      "price": [220]
+    },
+    "fish_chilly": {
+      "name": "fish chilly",
+      "price": [250]
+    },
+    "prawns_chilly": {
+      "name": "prawns chilly",
+      "price": [250]
+    },
+    "diet_chicken": {
+      "name": "diet chicken",
+      "price": [250]
+    }
+  },
+  "biryani": {
+    "mix_veg_biryani": {
+      "name": "mix veg biryani",
+      "price": [180, 120]
+    },
+    "paneer_biryani": {
+      "name": "paneer biryani",
+      "price": [200, 130]
+    },
+    "paneer_tikka_biryani": {
+      "name": "paneer tikka biryani",
+      "price": [220, 150]
+    },
+    "mushroom_biryani": {
+      "name": "mushroom biryani",
+      "price": [220, 130]
+    },
+    "kaju_biryani": {
+      "name": "kaju biryani",
+      "price": [300, 180]
+    },
+    "babycorn_biryani": {
+      "name": "babycorn biryani",
+      "price": [300, 180]
+    },
+    "veg_keema_biryani": {
+      "name": "veg keema biryani",
+      "price": [300, 180]
+    }
+  },
+  "Bread": {
+    "tandoori_roti": {
+      "name": "tandoori_roti",
+      "price": [10]
+    },
+    "butter_tandoori_roti": {
+      "name": "butter tandoori roti",
+      "price": [13]
+    },
+    "plain_naan": {
+      "name": "plain naan",
+      "price": [20]
+    },
+    "butter_naan": {
+      "name": "butter naan",
+      "price": [25]
+    },
+    "kashmiri_naan": {
+      "name": "kashmiri naan",
+      "price": [50]
+    },
+    "garlic_naan": {
+      "name": "garlic naan",
+      "price": [35]
+    },
+    "plain_kulcha": {
+      "name": "plain kulcha",
+      "price": [15]
+    },
+    "butter_kulcha": {
+      "name": "butter kulcha",
+      "price": [20]
+    },
+    "masala_kulcha": {
+      "name": "masala kulcha",
+      "price": [40]
+    },
+    "laccha_paratha": {
+      "name": "laccha paratha",
+      "price": [25]
+    },
+    "pudina_paratha": {
+      "name": "pudina paratha",
+      "price": [30]
+    },
+    "aloo_paratha": {
+      "name": "aloo paratha",
+      "price": [30]
+    },
+    "gobi_paratha": {
+      "name": "gobi paratha",
+      "price": [35]
+    },
+    "tawa_roti": {
+      "name": "tawa roti",
+      "price": [7]
+    },
+    "butter_tawa_roti": {
+      "name": "butter tawa roti",
+      "price": [10]
+    },
+    "paneer_kulcha": {
+      "name": "paneer kulcha",
+      "price": [80]
+    },
+    "chicken_keema_kulcha": {
+      "name": "chicken keema kulcha",
+      "price": [100]
+    }
+  },
+  "soft drink": {
+    "water_bottle": {
+      "name": "water bottle",
+      "price": [20]
+    },
+    "masala_cold_drink": {
+      "name": "masala cold drink",
+      "price": [40]
+    },
+    "lemon_soda": {
+      "name": "lemon soda",
+      "price": [40]
+    },
+    "paneer_kulcha": {
+      "name": "paneer kulcha",
+      "price": [80]
+    }
+  },
+  "Gravy-Veg": {
+    "paneer_tikka_masala": {
+      "name": "paneer tikka masala",
+      "price": [220]
+    },
+    "paneer_chatpat": {
+      "name": "paneer chatpat",
+      "price": [200]
+    },
+    "babycorn_masala": {
+      "name": "babycorn masala",
+      "price": [150]
+    },
+    "mushroom_masala": {
+      "name": "mushroom masala",
+      "price": [150]
+    },
+    "veg_mix_gharana": {
+      "name": "veg mix gharana",
+      "price": [150]
+    },
+    "paneer_jaipuri": {
+      "name": "paneer jaipuri",
+      "price": [170]
+    },
+    "paneer_kolhapuri": {
+      "name": "paneer kolhapuri",
+      "price": [170]
+    },
+    "paneer_kadhai": {
+      "name": "paneer kadhai",
+      "price": [160]
+    },
+    "mushroom_kadhai": {
+      "name": "mushroom kadhai",
+      "price": [160]
+    },
+    "mutter_mushroom": {
+      "name": "mutter mushroom",
+      "price": [150]
+    },
+    "paneer_butter_masala": {
+      "name": "paneer butter masala",
+      "price": [170]
+    },
+    "paneer_lababdar": {
+      "name": "paneer lababdar",
+      "price": [170]
+    },
+    "paneer_dopyaza": {
+      "name": "paneer dopyaza",
+      "price": [160]
+    },
+    "paneer_makhni": {
+      "name": "paneer makhni",
+      "price": [170]
+    },
+    "kaju_curry": {
+      "name": "kaju curry",
+      "price": [200]
+    },
+    "methi_mutter_malai": {
+      "name": "methi mutter malai",
+      "price": [180]
+    },
+    "malai_kofta": {
+      "name": "malai kofta",
+      "price": [150]
+    },
+    "veg_kofta": {
+      "name": "veg kofta",
+      "price": [130]
+    },
+    "navratan_korma": {
+      "name": "navratan korma",
+      "price": [130]
+    },
+    "palak_paneer": {
+      "name": "palak paneer",
+      "price": [160]
+    },
+    "corn_palak": {
+      "name": "corn palak",
+      "price": [150]
+    },
+    "kashmiri_alu_dum": {
+      "name": "kashmiri alu dum",
+      "price": [120]
+    },
+    "alu_jeera": {
+      "name": "alu jeera",
+      "price": [120]
+    },
+    "sp_curry": {
+      "name": "special curry",
+      "price": [180]
+    },
+    "paneer_hyderabadi": {
+      "name": "paneer hyderabadi",
+      "price": [170]
+    }
+  }
+}
