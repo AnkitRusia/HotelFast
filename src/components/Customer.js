@@ -4,6 +4,8 @@ import Box from "@mui/material/Box";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { Button, Paper } from "@mui/material";
+import data from "../assets/menu.json";
+// import orderJSON from "../assets/order.json";
 
 let MENU1 = {
   veg: {
@@ -46,7 +48,39 @@ const MENU3 = [
   { name: "4", price: { half: 70, full: 100 } },
 ];
 
-const SelectPriceButton = ({ name, price }) => {
+const tableOrders = {
+  1: [
+    {
+      name: "biryani",
+      type: "full",
+      price: 300,
+      qty: 2,
+    },
+  ],
+  2: [
+    {
+      name: "biryani",
+      type: "full",
+      price: 300,
+      qty: 2,
+    },
+    {
+      name: "dal fry",
+      type: "half",
+      price: 300,
+      qty: 2,
+    },
+  ],
+};
+
+const SelectPriceButton = ({
+  idx,
+  name,
+  price,
+  length,
+  onAddClick,
+  onRemoveClick,
+}) => {
   /* 
     dish name: str,
     price: int,
@@ -54,7 +88,26 @@ const SelectPriceButton = ({ name, price }) => {
     action:
     add to main bill
     */
-  console.log(name, price);
+  // console.log(idx, name, price);
+  let quantity = "";
+  if (length === 1) {
+    quantity = "Full -  ";
+  } else if (length === 2) {
+    if (idx === 0) {
+      quantity = "Full -  ";
+    } else {
+      quantity = "Half -  ";
+    }
+  } else if (length === 3) {
+    if (idx === 2) {
+      quantity = "Quarter - ";
+    } else if (idx === 1) {
+      quantity = "Half - ";
+    } else {
+      quantity = "Full -  ";
+    }
+  }
+
   return (
     <Paper
       className="SelectPriceOption"
@@ -71,21 +124,26 @@ const SelectPriceButton = ({ name, price }) => {
         size="small"
         sx={{ borderRadius: "20px", border: "0px" }}
       >
-        <RemoveCircleOutlineIcon />
+        <RemoveCircleOutlineIcon
+          onClick={() => onRemoveClick(name, quantity)}
+        />
       </Button>
+      <Typography>{quantity}</Typography>
       <Typography>{price}</Typography>
       <Button
         variant="outlined"
         size="small"
         sx={{ borderRadius: "20px", border: "0px" }}
       >
-        <AddCircleOutlineIcon />
+        <AddCircleOutlineIcon
+          onClick={() => onAddClick(name, price, quantity)}
+        />
       </Button>
     </Paper>
   );
 };
 
-const MenuCard = ({ name, veg, prices }) => {
+const MenuCard = ({ name, veg, prices, onAddClick, onRemoveClick }) => {
   /*
     name: str
     veg: bool
@@ -99,10 +157,12 @@ const MenuCard = ({ name, veg, prices }) => {
       className="MenuBoxGoldColor"
       elevation={3}
       sx={{
-        minHeight: "100px",
-        width: "92vw",
-        height: "20vh",
-        marginTop: "1vh",
+        // minHeight: "100px",
+        // width: "92vw",
+        // height: "20vh",
+        margin: "1vh 1vw",
+        display: "flex",
+        flexWrap: "wrap",
         backgroundColor: "rgba(212,175,55,0.3)",
         borderTop: `3px solid rgba(0, 0, 0, 0.4)`,
         borderLeft: `3px solid rgba(0, 0, 0, 0.4)`,
@@ -122,8 +182,8 @@ const MenuCard = ({ name, veg, prices }) => {
           justifyContent: "center",
           alignItems: "center",
           position: "relative",
-          top: "2%",
-          left: "2%",
+          top: "1.5vh",
+          left: "5%",
         }}
       >
         <Box
@@ -142,6 +202,7 @@ const MenuCard = ({ name, veg, prices }) => {
           position: "relative",
           top: "-15%",
           left: "10%",
+          paddingBottom: "20px",
         }}
       >
         {name}
@@ -156,51 +217,133 @@ const MenuCard = ({ name, veg, prices }) => {
           justifyContent: "space-around",
         }}
       >
-        {prices.map((price) => {
-          return <SelectPriceButton name={name} price={price} />;
+        {prices.map((price, idx) => {
+          return (
+            <SelectPriceButton
+              idx={idx}
+              name={name}
+              price={price}
+              length={prices.length}
+              onAddClick={onAddClick}
+              onRemoveClick={onRemoveClick}
+            />
+          );
         })}
       </Box>
     </Paper>
   );
 };
 
-const CategoryBox = ({ cname }) => {
-  return (
-    <Paper
-      elevation={10}
-      sx={{
-        background: "#f6edd8",
-        height: "5vh",
-        marginTop: "1vh",
-        marginBottom: "1vh",
-        marginRight: "1vw",
-        marginLeft: "1vw",
-        borderRadius: "10px",
-        justifyContent: "center",
-        flexDirection: "row",
-        alignItems: "center",
-        display: "flex",
-        minWidth: "100px",
-        pointerEvents: "none",
-        padding: "5px",
-      }}
-    >
-      <Typography sx={{ fontSize: "1.2em" }}>{cname}</Typography>
-    </Paper>
-  );
-};
-
 function Customer() {
-  let CATAGORY = [
-    "Veg",
-    "Main Course",
-    "non veg",
-    "gravy",
-    "papad",
-    "salad",
-    "rice",
-    "biryani",
-  ];
+  // let CATAGORY = [
+  //   "Veg",
+  //   "Main Course",
+  //   "non veg",
+  //   "gravy",
+  //   "papad",
+  //   "salad",
+  //   "rice",
+  //   "biryani",
+  // ];
+
+  const [orderList, setOrderList] = React.useState([]);
+
+  const onAddClick = (name, price, quant) => {
+    let newOrderList = [...orderList];
+    console.log("Add to order list ", newOrderList);
+    let type = "";
+    if (quant === "Full -  ") {
+      type = "full";
+    } else if (quant === "Half -  ") {
+      type = "half";
+    } else if (quant === "Quarter - ") {
+      type = "quarter";
+    }
+    const index = newOrderList.findIndex(
+      (item) => item.name === name && item.type === type
+    );
+    console.log("index ", index);
+    if (index !== -1) {
+      newOrderList[index]["qty"] += 1;
+      setOrderList(newOrderList);
+    } else {
+      let item = {
+        name,
+        price,
+        type,
+        qty: 1,
+      };
+      newOrderList.push(item);
+      setOrderList(newOrderList);
+    }
+  };
+
+  const onRemoveClick = (name, quant) => {
+    let newOrderList = [...orderList];
+    let type = "";
+    if (quant === "Full -  ") {
+      type = "full";
+    } else if (quant === "Half -  ") {
+      type = "half";
+    } else if (quant === "Quarter - ") {
+      type = "quarter";
+    }
+    console.log("Remove from order list ", newOrderList);
+    const index = newOrderList.findIndex(
+      (item) => item.name === name && item.type === type
+    );
+    console.log("index ", index);
+    if (index !== -1) {
+      if (newOrderList[index]["qty"] === 1) {
+        delete newOrderList[index];
+        setOrderList(newOrderList);
+      } else {
+        newOrderList[index]["qty"] -= 1;
+        setOrderList(newOrderList);
+      }
+    }
+  };
+
+  const handleOrder = () => {
+    if (orderList.length === 0) {
+      alert("No items in your order");
+    } else {
+      let tableNo = prompt("Enter your table number : ");
+      // let bar = window.confirm("Confirm or deny");
+      console.log(tableNo);
+
+      const order = {
+        [tableNo]: [...orderList],
+      };
+      console.log("order", order);
+      writeToJSON(order, tableNo);
+    }
+  };
+
+  const writeToJSON = async (order, tableNo) => {
+    fetch(`http://localhost:3000/${tableNo}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(order[tableNo]),
+    }).then((res) => console.log("Data insterted", res.json()));
+    // fs.writeFile("../assets/order.json", json, "utf8"); // write it back
+  };
+
+  // const downloadFile = async (order) => {
+  //   const fileName = "file";
+  //   const json = JSON.stringify(order);
+  //   const blob = new Blob([json], { type: "application/json" });
+  //   const href = await URL.createObjectURL(blob);
+  //   const link = document.createElement("a");
+  //   link.href = href;
+  //   link.download = fileName + ".json";
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   document.body.removeChild(link);
+  // };
+
   return (
     <div
       style={{
@@ -229,35 +372,63 @@ function Customer() {
           Welcome to Bhilai Biryani House
         </Typography>
       </Box>
-
-      <Box
-        sx={{
-          minHeight: "60px",
-          boxShadow: `0px 10px 15px rgba(0, 0, 0, 0.3)`,
-          backgroundColor: "#D3D3D3",
-          height: "10vh",
-          width: "100%",
-          alignItems: "center",
-          justifyContent: "center",
-          display: "flex",
-          flexDirection: "row",
-          overflowY: "auto",
-          marginLeft: "10px",
-          marginRight: "10px",
-          position: "fixed",
-          top: "15vh",
-          zIndex: "2",
-        }}
-      >
-        {CATAGORY.map((element) => {
-          return <CategoryBox cname={element} />;
-        })}
+      <Box sx={{ height: "16vh" }} />
+      <Box sx={{ height: "10vh" }}>
+        <Button
+          varient="contained"
+          sx={{
+            margin: "1vh 1vw",
+            position: "fixed",
+            right: "1vw",
+            height: "25px",
+            width: "25px",
+            backgroundColor: "yellow",
+            borderRadius: "12px",
+          }}
+          onClick={() => handleOrder()}
+        >
+          Order
+        </Button>
       </Box>
-      <Box sx={{ height: "26vh" }} />
-      <MenuCard name="Briyani" veg={0} prices={[100, 200, 300]} />
-      <MenuCard name="Rice" veg={1} prices={[100, 200]} />
+      {Object.keys(data).map((key) => {
+        return (
+          <>
+            <MenuHeadings header={key} />
+            {Object.keys(data[key]).map((item) => {
+              console.log(data[key][item]);
+
+              return (
+                <MenuCard
+                  name={data[key][item].name}
+                  veg={1}
+                  prices={data[key][item].price}
+                  onAddClick={onAddClick}
+                  onRemoveClick={onRemoveClick}
+                />
+              );
+            })}
+          </>
+        );
+      })}
     </div>
   );
 }
+
+const MenuHeadings = ({ header }) => (
+  <div
+    style={{
+      display: "flex",
+      width: "200px",
+      height: "60px",
+      background: "maroon",
+      justifyContent: "center",
+      alignItems: "center",
+    }}
+  >
+    <Typography style={{ fontSize: "18px", color: "#fff" }}>
+      {header}
+    </Typography>
+  </div>
+);
 
 export default Customer;
