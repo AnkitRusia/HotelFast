@@ -94,8 +94,6 @@ EnhancedTableToolbar.propTypes = {
 
 export default function MenuCard({ data, name }) {
   // Avoid a layout jump when reaching the last page with empty rows.
-
-  console.log("menu 2", data);
   const rows = [];
   Object.keys(data).map((key) => rows.push(createData(data[key])));
 

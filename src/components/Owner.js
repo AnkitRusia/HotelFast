@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Menu from "./Menu";
 import Orders from "./Orders";
-// import OwnerDashboard from "./view-components/OwnerDashboard/OwnerDashboardContainer";
+import OwnerDashboard from "./view-components/OwnerDashboard/OwnerDashboardContainer";
 
 function Owner() {
   const [toShow, SetShow] = React.useState(0);
@@ -114,4 +114,4 @@ function Owner() {
   );
 }
 
-export default Owner;
+export default OwnerDashboard;
