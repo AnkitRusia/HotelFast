@@ -14,7 +14,9 @@ const OwnerDashboardContainer = () => {
     return ret;
   };
 
-  const tableOrders = formatter(orders);
+  const tableOrders = formatter(orders.tableOrders);
+
+  const [loading, setLoading] = React.useState(false);
 
   return (
     <OwnerDashboardComponent
@@ -22,6 +24,8 @@ const OwnerDashboardContainer = () => {
       currentTab={currentTab}
       setCurrentTab={setCurrentTab}
       tableOrders={tableOrders}
+      loading={loading}
+      setLoading={setLoading}
     />
   );
 };

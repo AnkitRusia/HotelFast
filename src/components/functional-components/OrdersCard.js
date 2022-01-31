@@ -11,6 +11,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
+import orders from "../../assets/order.json";
 
 const headCells = [
   {
@@ -47,6 +48,7 @@ function EnhancedTableHead(props) {
             key={headCell.id}
             align={headCell.numeric ? "right" : "left"}
             padding="normal"
+            sx={{ fontWeight: "bolder" }}
           >
             {headCell.label}
           </TableCell>
@@ -61,6 +63,7 @@ const EnhancedTableToolbar = ({
   cardRef,
   changer,
   handleClickOnPrint,
+  setToPaid,
 }) => {
   return (
     <Toolbar>
@@ -81,6 +84,24 @@ const EnhancedTableToolbar = ({
       >
         Print
       </Button>
+      <Button
+        onClick={() => setToPaid()}
+        variant="outlined"
+        color="secondary"
+        sx={{ marginLeft: 3, marginRight: 1 }}
+      >
+        Paid
+      </Button>
+      <Button
+        onClick={() => {
+          changer(cardRef);
+          handleClickOnPrint();
+        }}
+        variant="outlined"
+        sx={{ marginLeft: 3, marginRight: 3 }}
+      >
+        Add
+      </Button>
     </Toolbar>
   );
 };
@@ -89,7 +110,13 @@ EnhancedTableToolbar.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
-export default function OrderCard({ data, name, handleClickOnPrint, changer }) {
+export default function OrderCard({
+  data,
+  name,
+  handleClickOnPrint,
+  changer,
+  setLoading,
+}) {
   // Avoid a layout jump when reaching the last page with empty rows.
 
   console.log("menu 2", data);
@@ -98,6 +125,30 @@ export default function OrderCard({ data, name, handleClickOnPrint, changer }) {
   data.forEach((value) => {
     total_price += value.price;
   });
+
+  const sgst = (2.5 * total_price) / 100;
+  const cgst = (2.5 * total_price) / 100;
+  const service_charge = 0;
+  const total = sgst + cgst + service_charge + total_price;
+
+  const setToPaid = () => {
+    setLoading(true);
+    fetch(`http://localhost:3000/tableOrders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...orders.tableOrders, [name]: {} }),
+    })
+      .then((res) => {
+        setLoading(false);
+        console.log("Data insterted", res.json());
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log("Data failed", err);
+      });
+  };
 
   const cardRef = React.useRef(null);
   return (
@@ -108,6 +159,7 @@ export default function OrderCard({ data, name, handleClickOnPrint, changer }) {
           handleClickOnPrint={handleClickOnPrint}
           changer={changer}
           cardRef={cardRef}
+          setToPaid={setToPaid}
         />
         <TableContainer sx={{ maxHeight: "600px", minHeight: "600px" }}>
           <Table stickyHeader aria-labelledby="tableTitle" size="medium">
@@ -127,14 +179,50 @@ export default function OrderCard({ data, name, handleClickOnPrint, changer }) {
               })}
               <TableRow>
                 <TableCell
-                  colSpan={2}
+                  colSpan={3}
+                  align="right"
+                  sx={{ fontWeight: "bolder" }}
+                >
+                  SGST (2.5%)
+                </TableCell>
+                <TableCell align="right" sx={{ fontWeight: "bolder" }}>
+                  {sgst}
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell
+                  colSpan={3}
+                  align="right"
+                  sx={{ fontWeight: "bolder" }}
+                >
+                  CGST (2.5%)
+                </TableCell>
+                <TableCell align="right" sx={{ fontWeight: "bolder" }}>
+                  {cgst}
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell
+                  colSpan={3}
+                  align="right"
+                  sx={{ fontWeight: "bolder" }}
+                >
+                  Service Charge
+                </TableCell>
+                <TableCell align="right" sx={{ fontWeight: "bolder" }}>
+                  {service_charge}
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell
+                  colSpan={3}
                   align="right"
                   sx={{ fontWeight: "bolder" }}
                 >
                   Total
                 </TableCell>
                 <TableCell align="right" sx={{ fontWeight: "bolder" }}>
-                  {total_price}
+                  {total}
                 </TableCell>
               </TableRow>
             </TableBody>
