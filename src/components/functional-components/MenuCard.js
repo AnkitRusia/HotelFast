@@ -119,13 +119,13 @@ export default function MenuCard({ data, name }) {
   ]);
   const [open, setOpen] = React.useState(false);
 
-  const handleClear = () => setAddData([]);
+  // const handleClear = () => setAddData([]);
   const handleClose = () => {
     setAddData({});
     setOpen(false);
   };
 
-  const dialogRows = [];
+  // const dialogRows = [];
   Object.keys(addData).map((key) => rows.push(createData(addData[key])));
 
   return (
