@@ -1,4 +1,5 @@
 import React from "react";
+import Logo from "../../../assets/logo.svg";
 import { Box, Typography, CircularProgress } from "@mui/material";
 import AccordionComponent from "../../atomic-components/Accordion";
 import CartContainer from "../../functional-components/CartContainer";
@@ -48,10 +49,12 @@ const CustomerDashboardComponent = ({ loading, categories }) => {
           justifyContent: "center",
           alignItems: "center",
           width: "100%",
+          columnGap: "15px",
           background: "linear-gradient(90deg, #B78628, #DBA514, #FCC201)",
         }}
       >
-        <Typography align="center" variant="h5" color="#fff">
+        <img src={Logo} alt="logo" style={{ width: "40px", height: "40px" }} />
+        <Typography align="center" color="#fff" style={{ fontSize: "1.2rem" }}>
           Welcome to Bhilai Biryani House
         </Typography>
       </Box>

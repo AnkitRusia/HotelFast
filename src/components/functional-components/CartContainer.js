@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import VegIcon from "../../assets/veg.svg";
 import NonVegIcon from "../../assets/non-veg.svg";
 import { setCartList } from "../../actions/cartActions";
@@ -11,9 +11,11 @@ const toUpperCase = (str) => {
 
 const CartContainer = () => {
   const dispatch = useDispatch();
+  const [ordering, setOrdering] = useState(false);
   const cartList = useSelector((state) => state.cartReducer.cartList);
+
   const socket = new WebSocket(
-    "ws://bbh-api-v1.herokuapp.com/notification/owner"
+    `ws://bbh-api-v1.herokuapp.com/notification/${Math.random()}`
   );
 
   socket.addEventListener("open", function (event) {
@@ -28,11 +30,37 @@ const CartContainer = () => {
     console.log("Message from server ", event.data);
   });
 
-  const handleOrderClick = () => {
+  const handleOrderClick = async () => {
+    let totalPrice = 0;
     const tableNo = window.location.pathname.split("/")[2];
-    const order = { [tableNo]: cartList };
-    socket.send(JSON.stringify(order));
-    console.log("CartList sent to WS server", order);
+
+    cartList.forEach((item) => {
+      totalPrice += item.price;
+    });
+    const order = {
+      amount: totalPrice,
+      items: cartList,
+    };
+
+    setOrdering(true);
+    console.log("Ordering", order);
+    const data = await fetch(
+      `https://bbh-api-v1.herokuapp.com/order/newOrder/${tableNo}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(order),
+      }
+    );
+
+    const json = await data.json();
+    console.log("Response", json);
+
+    setOrdering(false);
+    socket.send(tableNo);
+    console.log("Table No sent to WS server", tableNo);
     dispatch(setCartList([]));
     alert("Order Placed!");
   };
@@ -169,7 +197,7 @@ const CartContainer = () => {
       >
         <Button
           variant="contained"
-          disabled={cartList?.length < 1}
+          disabled={cartList?.length < 1 || ordering}
           onClick={handleOrderClick}
         >
           Order now

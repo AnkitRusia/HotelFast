@@ -10,7 +10,7 @@ function CategoryItemsList({ category }) {
     setLoading(true);
     const fetchData = async () => {
       const data = await fetch(
-        `http://bbh-api-v1.herokuapp.com/item/category/${category}`,
+        `https://bbh-api-v1.herokuapp.com/item/category/${category}`,
         {
           method: "GET",
           headers: {

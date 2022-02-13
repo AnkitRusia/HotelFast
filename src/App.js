@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
-import Owner from "./components/Owner";
 import Customer from "./components/Customer";
+import Owner from "./components/Owner";
 import { createTheme, ThemeProvider } from "@mui/material";
 
 const theme = createTheme({
@@ -17,7 +17,7 @@ const App = () => {
       <Router>
         <Routes>
           <Route exact path="/" element={<LandingPage />} />
-          <Route exact path="/Owner" element={<Owner />} />
+          <Route exact path="/owner" element={<Owner />} />
           <Route exact path="/Customer/:id" element={<Customer />} />
           <Route path="*" element={<LandingPage />} />
         </Routes>

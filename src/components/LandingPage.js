@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
@@ -25,13 +25,28 @@ var css = {
 
 function LandingPage() {
   const [tableNo, setTableNo] = useState(null);
+  const [password, setPassword] = useState(null);
 
   const handleTableNoChange = () => {
     setTableNo(prompt("Enter your table number : "));
   };
 
+  const handleLogin = async () => {
+    const password = prompt("Enter your password : ");
+    setPassword(password);
+    const res = await fetch(
+      `https://bbh-api-v1.herokuapp.com/servercontrol/server/password?passwd=${password}`
+    );
+    const json = await res.json();
+    console.log("Status : ", json);
+  };
+
   if (tableNo) {
     return <Navigate to={`/Customer/${tableNo}`} />;
+  }
+
+  if (password && password === "admin") {
+    return <Navigate to="/owner" />;
   }
 
   return (
@@ -71,13 +86,11 @@ function LandingPage() {
           Customer
         </Typography>
       </Box>
-      <Link style={{ textDecoration: "none" }} to="/owner">
-        <Box sx={css.glass}>
-          <Typography align="center" variant="h3" color="#fff">
-            Owner
-          </Typography>
-        </Box>
-      </Link>
+      <Box sx={css.glass} onClick={handleLogin}>
+        <Typography align="center" variant="h3" color="#fff">
+          Owner
+        </Typography>
+      </Box>
     </Box>
   );
 }
