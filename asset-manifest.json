@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/bbhui/static/css/main.2ae47eeb.chunk.css",
+    "main.js": "/bbhui/static/js/main.d525eab6.chunk.js",
+    "main.js.map": "/bbhui/static/js/main.d525eab6.chunk.js.map",
+    "runtime-main.js": "/bbhui/static/js/runtime-main.362276c3.js",
+    "runtime-main.js.map": "/bbhui/static/js/runtime-main.362276c3.js.map",
+    "static/js/2.ce25fbd1.chunk.js": "/bbhui/static/js/2.ce25fbd1.chunk.js",
+    "static/js/2.ce25fbd1.chunk.js.map": "/bbhui/static/js/2.ce25fbd1.chunk.js.map",
+    "static/js/3.2312cbf0.chunk.js": "/bbhui/static/js/3.2312cbf0.chunk.js",
+    "static/js/3.2312cbf0.chunk.js.map": "/bbhui/static/js/3.2312cbf0.chunk.js.map",
+    "index.html": "/bbhui/index.html",
+    "static/css/main.2ae47eeb.chunk.css.map": "/bbhui/static/css/main.2ae47eeb.chunk.css.map",
+    "static/js/2.ce25fbd1.chunk.js.LICENSE.txt": "/bbhui/static/js/2.ce25fbd1.chunk.js.LICENSE.txt",
+    "static/media/logo.56137475.svg": "/bbhui/static/media/logo.56137475.svg",
+    "static/media/non-veg.c3937a36.svg": "/bbhui/static/media/non-veg.c3937a36.svg",
+    "static/media/veg.151e5ee2.svg": "/bbhui/static/media/veg.151e5ee2.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.362276c3.js",
+    "static/js/2.ce25fbd1.chunk.js",
+    "static/css/main.2ae47eeb.chunk.css",
+    "static/js/main.d525eab6.chunk.js"
+  ]
+}
