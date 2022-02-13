@@ -15,7 +15,7 @@ const CartContainer = () => {
   const cartList = useSelector((state) => state.cartReducer.cartList);
 
   const socket = new WebSocket(
-    `ws://bbh-api-v1.herokuapp.com/notification/${Math.random()}`
+    `wss://bbh-api-v1.herokuapp.com/notification/${Math.random()}`
   );
 
   socket.addEventListener("open", function (event) {
