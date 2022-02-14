@@ -242,8 +242,9 @@ export default function OrderCard({
         body: JSON.stringify({
           amount:
             mainData.amount -
-            data[addSpecificInput._idx].price +
-            parseInt(addSpecificInput.price),
+            data[addSpecificInput._idx].price *
+              data[addSpecificInput._idx].qty +
+            parseInt(addSpecificInput.price) * parseInt(addSpecificInput.qty),
           items: [
             ...data.filter((value, index) => index !== addSpecificInput._idx),
             getItems(addSpecificInput),
@@ -267,15 +268,10 @@ export default function OrderCard({
       });
   };
 
-  let total_price = 0;
-  data.forEach((value) => {
-    total_price += value.price;
-  });
-
-  const sgst = (2.5 * total_price) / 100;
-  const cgst = (2.5 * total_price) / 100;
+  const sgst = (2.5 * mainData.amount) / 100;
+  const cgst = (2.5 * mainData.amount) / 100;
   const service_charge = 0;
-  const total = sgst + cgst + service_charge + total_price;
+  const total = sgst + cgst + service_charge + mainData.amount;
 
   const setToPaid = () => {
     fetch(`https://bbh-api-v1.herokuapp.com/order/paid/${name}`, {

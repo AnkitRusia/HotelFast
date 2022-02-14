@@ -19,7 +19,7 @@ const CartContainer = ({ socket }) => {
     const tableNo = window.location.pathname.split("/")[2];
 
     cartList.forEach((item) => {
-      totalPrice += item.price;
+      totalPrice += item.price * item.qty;
     });
     const order = {
       amount: totalPrice,
