@@ -49,9 +49,13 @@ const OwnerDashboardContainer = () => {
           });
           setOrderData(currentOrders);
         }
+        setMenuLoading(false);
       })
-      .catch((err) => console.log(err));
-    setMenuLoading(false);
+      .catch((err) => {
+        console.log(err);
+        setMenuLoading(false);
+      });
+
     setCurrentTab("orders");
   }, [setOrderData, setCurrentTab]);
 

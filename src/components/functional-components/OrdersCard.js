@@ -207,7 +207,7 @@ export default function OrderCard({
 
   const getItems = ({ name, price, veg, type, qty }) => ({
     name,
-    price,
+    price: parseInt(price),
     veg,
     type,
     qty,
