@@ -48,7 +48,13 @@ const headCells = [
     id: "price",
     numeric: true,
     disablePadding: false,
-    label: "Price",
+    label: "Item Price",
+  },
+  {
+    id: "price",
+    numeric: true,
+    disablePadding: false,
+    label: "Total Price",
   },
   {
     id: "Edit",
@@ -70,7 +76,7 @@ const headCellsForEdit = [
     id: "price",
     numeric: true,
     disablePadding: false,
-    label: "Price",
+    label: "Item Price",
   },
   {
     id: "quantity",
@@ -362,6 +368,9 @@ export default function OrderCard({
                     <TableCell align="right">{row.qty ?? "--"}</TableCell>
                     <TableCell align="right">{row.price ?? "--"}</TableCell>
                     <TableCell align="right">
+                      {row.price * row.qty ?? "--"}
+                    </TableCell>
+                    <TableCell align="right">
                       <Fab
                         variant="outlined"
                         color="primary"
@@ -386,7 +395,7 @@ export default function OrderCard({
               })}
               <TableRow>
                 <TableCell
-                  colSpan={3}
+                  colSpan={4}
                   align="right"
                   sx={{ fontWeight: "bolder" }}
                 >
@@ -398,7 +407,7 @@ export default function OrderCard({
               </TableRow>
               <TableRow>
                 <TableCell
-                  colSpan={3}
+                  colSpan={4}
                   align="right"
                   sx={{ fontWeight: "bolder" }}
                 >
@@ -410,7 +419,7 @@ export default function OrderCard({
               </TableRow>
               <TableRow>
                 <TableCell
-                  colSpan={3}
+                  colSpan={4}
                   align="right"
                   sx={{ fontWeight: "bolder" }}
                 >
@@ -422,7 +431,7 @@ export default function OrderCard({
               </TableRow>
               <TableRow>
                 <TableCell
-                  colSpan={3}
+                  colSpan={4}
                   align="right"
                   sx={{ fontWeight: "bolder" }}
                 >
@@ -472,6 +481,7 @@ export default function OrderCard({
                           onChange={(e) =>
                             handleAddChange("name", e.target.value)
                           }
+                          disabled
                         />
                       </TableCell>
                       <TableCell align="right">
@@ -502,6 +512,7 @@ export default function OrderCard({
                           onChange={(e) =>
                             handleAddChange("type", e.target.value)
                           }
+                          disabled
                         >
                           <MenuItem value={"full"}>Full</MenuItem>
                           <MenuItem value={"half"}>Half</MenuItem>
@@ -516,6 +527,7 @@ export default function OrderCard({
                           onChange={(e) =>
                             handleAddChange("veg", e.target.value)
                           }
+                          disabled
                         >
                           <MenuItem value={0}>No</MenuItem>
                           <MenuItem value={1}>Yes</MenuItem>
