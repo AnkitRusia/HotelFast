@@ -6,11 +6,9 @@ const OwnerDashboardContainer = () => {
 
   const [menuLoading, setMenuLoading] = React.useState(false);
   const [menuData, setMenuData] = React.useState({});
-  const [listTables, getListTables] = React.useState({});
 
   const formatPureData = (data) => {
     const keylist = {};
-    console.log(data, "hello");
     data.forEach((menuItem) => {
       if (!keylist[menuItem.category])
         keylist[menuItem.category] = data.filter(
@@ -24,7 +22,7 @@ const OwnerDashboardContainer = () => {
 
   const fetchMenuData = React.useCallback(() => {
     setMenuLoading(true);
-    fetch("http://bbh-api-v1.herokuapp.com/item")
+    fetch("https://bbh-api-v1.herokuapp.com/item")
       .then((res) => res.json())
       .then((res) => {
         setMenuData(formatPureData(res));
@@ -39,7 +37,7 @@ const OwnerDashboardContainer = () => {
 
   const getAllOrders = React.useCallback(() => {
     setMenuLoading(true);
-    fetch(`http://bbh-api-v1.herokuapp.com/order/tables`)
+    fetch(`https://bbh-api-v1.herokuapp.com/order/tables`)
       .then((res) => res.json())
       .then((res) => {
         if (res) {
@@ -65,7 +63,7 @@ const OwnerDashboardContainer = () => {
     } else {
       fetchMenuData();
     }
-  }, [currentTab]);
+  }, [currentTab, fetchMenuData, getAllOrders]);
 
   const socket = React.useRef(null);
   const [snackbarOpen, setSnackbarOpen] = React.useState({

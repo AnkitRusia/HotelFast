@@ -241,7 +241,7 @@ export default function MenuCard({ data, name, setMenuData, menuData }) {
 
   const getMenuCategoryData = () => {
     setLoading(true);
-    fetch(`http://bbh-api-v1.herokuapp.com/item/category/${name}`, {
+    fetch(`https://bbh-api-v1.herokuapp.com/item/category/${name}`, {
       method: "GET",
     })
       .then((res) => res.json())
@@ -258,7 +258,7 @@ export default function MenuCard({ data, name, setMenuData, menuData }) {
 
   const handleAddSave = () => {
     setScreenLoading("Adding....");
-    fetch("http://bbh-api-v1.herokuapp.com/item", {
+    fetch("https://bbh-api-v1.herokuapp.com/item", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -309,7 +309,7 @@ export default function MenuCard({ data, name, setMenuData, menuData }) {
       inStock: data.inStock,
       _id: data._id,
     };
-    fetch(`http://bbh-api-v1.herokuapp.com/item/${data._id}`, {
+    fetch(`https://bbh-api-v1.herokuapp.com/item/${data._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -343,7 +343,7 @@ export default function MenuCard({ data, name, setMenuData, menuData }) {
 
   const saveForEdit = () => {
     setScreenLoading("Editing....");
-    fetch(`http://bbh-api-v1.herokuapp.com/item/${addSpecificInput._id}`, {
+    fetch(`https://bbh-api-v1.herokuapp.com/item/${addSpecificInput._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

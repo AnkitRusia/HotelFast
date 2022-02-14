@@ -233,7 +233,7 @@ export default function OrderCard({
   const handleAddSave = () => {
     setScreenLoading("Editing....");
     fetch(
-      `http://bbh-api-v1.herokuapp.com/order/changeOrder/${mainData.tablenumber}`,
+      `https://bbh-api-v1.herokuapp.com/order/changeOrder/${mainData.tablenumber}`,
       {
         method: "POST",
         headers: {
@@ -278,7 +278,7 @@ export default function OrderCard({
   const total = sgst + cgst + service_charge + total_price;
 
   const setToPaid = () => {
-    fetch(`http://bbh-api-v1.herokuapp.com/order/paid/${name}`, {
+    fetch(`https://bbh-api-v1.herokuapp.com/order/paid/${name}`, {
       method: "DELETE",
     })
       .then((res) => {
@@ -291,7 +291,7 @@ export default function OrderCard({
   };
 
   const setToDelete = () => {
-    fetch(`http://bbh-api-v1.herokuapp.com/order/del/${name}`, {
+    fetch(`https://bbh-api-v1.herokuapp.com/order/del/${name}`, {
       method: "DELETE",
     })
       .then((res) => {
@@ -309,7 +309,7 @@ export default function OrderCard({
       amount: mainData.amount - data[idx].price,
     };
     fetch(
-      `http://bbh-api-v1.herokuapp.com/order/changeOrder/${mainData.tablenumber}`,
+      `https://bbh-api-v1.herokuapp.com/order/changeOrder/${mainData.tablenumber}`,
       {
         method: "POST",
         headers: {
