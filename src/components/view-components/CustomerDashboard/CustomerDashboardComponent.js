@@ -27,7 +27,7 @@ const CategoriesContainer = ({ categories }) => {
   );
 };
 
-const CustomerDashboardComponent = ({ loading, categories }) => {
+const CustomerDashboardComponent = ({ socket, loading, categories }) => {
   const scrollToTop = () => {
     let rootElement = document.documentElement;
     rootElement.scrollTo({
@@ -70,7 +70,7 @@ const CustomerDashboardComponent = ({ loading, categories }) => {
         }}
       >
         <AccordionComponent title="My Orders">
-          <CartContainer />
+          <CartContainer socket={socket} />
         </AccordionComponent>
         <Box
           sx={{

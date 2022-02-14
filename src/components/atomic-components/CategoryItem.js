@@ -75,7 +75,7 @@ function CategoryItem({ item }) {
     }
   };
 
-  if (item && item.inStock && item.inStock === 0) {
+  if (item && item.inStock === 0) {
     return null;
   }
 

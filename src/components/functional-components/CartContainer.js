@@ -9,26 +9,10 @@ const toUpperCase = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-const CartContainer = () => {
+const CartContainer = ({ socket }) => {
   const dispatch = useDispatch();
   const [ordering, setOrdering] = useState(false);
   const cartList = useSelector((state) => state.cartReducer.cartList);
-
-  const socket = new WebSocket(
-    `wss://bbh-api-v1.herokuapp.com/notification/${Math.random()}`
-  );
-
-  socket.addEventListener("open", function (event) {
-    console.log("Connected to the WS Server!");
-  });
-
-  socket.addEventListener("close", function (event) {
-    console.log("Disconnected from the WS Server!");
-  });
-
-  socket.addEventListener("message", function (event) {
-    console.log("Message from server ", event.data);
-  });
 
   const handleOrderClick = async () => {
     let totalPrice = 0;
@@ -59,7 +43,7 @@ const CartContainer = () => {
     console.log("Response", json);
 
     setOrdering(false);
-    socket.send(tableNo);
+    socket.current.send(tableNo);
     console.log("Table No sent to WS server", tableNo);
     dispatch(setCartList([]));
     alert("Order Placed!");
