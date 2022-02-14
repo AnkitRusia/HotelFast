@@ -334,7 +334,7 @@ export default function MenuCard({ data, name, setMenuData, menuData }) {
       price: [data.full ?? 0, data.half ?? 0, data.quarter ?? 0],
       veg: data.veg,
       category: name,
-      inStock: data.veg,
+      inStock: data.inStock,
       _id: data._id,
     });
     selectCurrentRoute("edit");
