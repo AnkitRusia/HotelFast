@@ -143,6 +143,8 @@ const EnhancedTableToolbar = ({
   handleClickOnPrint,
   setToPaid,
   setToDelete,
+  payWay,
+  setPayWay,
 }) => {
   return (
     <Toolbar>
@@ -180,6 +182,16 @@ const EnhancedTableToolbar = ({
       >
         Paid
       </Button>
+      <Select
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
+        value={payWay ?? "cash"}
+        onChange={(e) => setPayWay(e.target.value)}
+        sx={{ marginLeft: 3, marginRight: 1 }}
+      >
+        <MenuItem value="cash">Cash</MenuItem>
+        <MenuItem value="online">Online</MenuItem>
+      </Select>
     </Toolbar>
   );
 };
@@ -328,6 +340,11 @@ export default function OrderCard({
       });
   };
 
+  const handleSelectForPayChange = (value) => {
+    console.log(value);
+    // api call
+  };
+
   const cardRef = React.useRef(null);
 
   return (
@@ -353,6 +370,8 @@ export default function OrderCard({
           setToDelete={setToDelete}
           hideOnPrint={hideOnPrint}
           setHideOnPrint={setHideOnPrint}
+          payWay={mainData.paymentMethod}
+          setPayWay={handleSelectForPayChange}
         />
         <TableContainer sx={{ maxHeight: "560px", minHeight: "560px" }}>
           <Table stickyHeader aria-labelledby="tableTitle" size="medium">
