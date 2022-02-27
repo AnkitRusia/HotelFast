@@ -213,6 +213,9 @@ export default function OrderCard({
   console.log("menu 2", data);
 
   const [hideOnPrint, setHideOnPrint] = React.useState(false);
+  const [paymentMethod, setPaymentMethod] = React.useState(
+    mainData.paymentMethond ?? "cash"
+  );
 
   const [addSpecificInput, setAddSpecificInput] = React.useState({
     name: "",
@@ -292,8 +295,10 @@ export default function OrderCard({
   const total = sgst + cgst + service_charge + mainData.amount;
 
   const setToPaid = () => {
+    const retData = { ...mainData, paymentMethod };
     fetch(`https://bbh-api-v1.herokuapp.com/order/paid/${name}`, {
-      method: "DELETE",
+      method: "POST",
+      body: JSON.stringify(retData),
     })
       .then((res) => {
         getCurrentOrders();
@@ -341,8 +346,7 @@ export default function OrderCard({
   };
 
   const handleSelectForPayChange = (value) => {
-    console.log(value);
-    // api call
+    setPaymentMethod(value);
   };
 
   const cardRef = React.useRef(null);
@@ -370,7 +374,7 @@ export default function OrderCard({
           setToDelete={setToDelete}
           hideOnPrint={hideOnPrint}
           setHideOnPrint={setHideOnPrint}
-          payWay={mainData.paymentMethod}
+          payWay={paymentMethod}
           setPayWay={handleSelectForPayChange}
         />
         <TableContainer sx={{ maxHeight: "560px", minHeight: "560px" }}>
