@@ -7,6 +7,7 @@ import OrderCard from "../../functional-components/OrdersCard";
 import { useReactToPrint } from "react-to-print";
 import { CircularProgress, Snackbar, IconButton, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import StatisticDashboard from "./../StatisticDashboard";
 
 const OwnerDashboardComponent = ({
   menu,
@@ -19,6 +20,10 @@ const OwnerDashboardComponent = ({
   snackbarOpen,
   setSnackbarOpen,
   getCurrentOrders,
+  statisticData,
+  getAllStatisticOrders,
+  dates,
+  setDates,
 }) => {
   const ref = React.useRef(null);
   const changer = (reference) => {
@@ -29,7 +34,49 @@ const OwnerDashboardComponent = ({
     content: () => ref?.current?.current,
   });
 
-  console.log("hello", tableOrders, loading, currentTab);
+  const renderers = {
+    orders: (
+      <Grid container>
+        {Object.keys(tableOrders).map((key) => (
+          <Grid item xs={12} sm={12} md={6} sx={{ padding: "20px" }}>
+            <OrderCard
+              data={tableOrders[key].items}
+              mainData={tableOrders[key]}
+              name={key}
+              handleClickOnPrint={handleClickOnPrint}
+              changer={changer}
+              setLoading={setLoading}
+              getCurrentOrders={getCurrentOrders}
+            />
+          </Grid>
+        ))}
+      </Grid>
+    ),
+    menu: (
+      <Grid container>
+        {Object.keys(menu).map((key) => (
+          <Grid item xs={12} sm={12} md={6} sx={{ padding: "20px" }}>
+            <MenuCard
+              data={menu[key]}
+              name={key}
+              menuData={menu}
+              setMenuData={setMenuData}
+            />
+          </Grid>
+        ))}
+      </Grid>
+    ),
+    statistics: (
+      <StatisticDashboard
+        statisticData={statisticData}
+        handleClickOnPrint={handleClickOnPrint}
+        changer={changer}
+        getAllStatisticOrders={getAllStatisticOrders}
+        dates={dates}
+        setDates={setDates}
+      />
+    ),
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -43,38 +90,7 @@ const OwnerDashboardComponent = ({
           height: "88vh",
         }}
       >
-        {loading ? (
-          <CircularProgress />
-        ) : currentTab === "orders" ? (
-          <Grid container>
-            {Object.keys(tableOrders).map((key) => (
-              <Grid item xs={12} sm={12} md={6} sx={{ padding: "20px" }}>
-                <OrderCard
-                  data={tableOrders[key].items}
-                  mainData={tableOrders[key]}
-                  name={key}
-                  handleClickOnPrint={handleClickOnPrint}
-                  changer={changer}
-                  setLoading={setLoading}
-                  getCurrentOrders={getCurrentOrders}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        ) : (
-          <Grid container>
-            {Object.keys(menu).map((key) => (
-              <Grid item xs={12} sm={12} md={6} sx={{ padding: "20px" }}>
-                <MenuCard
-                  data={menu[key]}
-                  name={key}
-                  menuData={menu}
-                  setMenuData={setMenuData}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        )}
+        {loading ? <CircularProgress /> : renderers[currentTab]}
       </Box>
       <Snackbar
         open={snackbarOpen.open}

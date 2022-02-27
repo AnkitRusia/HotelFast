@@ -6,6 +6,9 @@ const OwnerDashboardContainer = () => {
 
   const [menuLoading, setMenuLoading] = React.useState(false);
   const [menuData, setMenuData] = React.useState({});
+  const [orderData, setOrderData] = React.useState({});
+  const [statisticData, setStatisticData] = React.useState({});
+  const [dates, setDates] = React.useState([new Date(), new Date()]);
 
   const formatPureData = (data) => {
     const keylist = {};
@@ -17,8 +20,6 @@ const OwnerDashboardContainer = () => {
     });
     return keylist;
   };
-
-  const [orderData, setOrderData] = React.useState({});
 
   const fetchMenuData = React.useCallback(() => {
     setMenuLoading(true);
@@ -57,13 +58,44 @@ const OwnerDashboardContainer = () => {
     setCurrentTab("orders");
   }, [setOrderData, setCurrentTab]);
 
+  const getAllStatisticOrders = React.useCallback(
+    (startDate = new Date(), endDate = new Date()) => {
+      setMenuLoading(true);
+      fetch(`https://bbh-api-v1.herokuapp.com/order/tables`, {
+        method: "GET",
+        // body: JSON.stringify({ startDate, endDate }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (res) {
+            const currentOrders = {};
+            res.forEach((item) => {
+              currentOrders[item.tablenumber] = item;
+            });
+            setStatisticData(currentOrders);
+          }
+          setMenuLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setMenuLoading(false);
+        });
+
+      setCurrentTab("statistics");
+    },
+    [setStatisticData, setCurrentTab]
+  );
+
   React.useEffect(() => {
     if (currentTab === "orders") {
       getAllOrders();
+    } else if (currentTab === "statistics") {
+      getAllStatisticOrders();
     } else {
       fetchMenuData();
     }
-  }, [currentTab, fetchMenuData, getAllOrders]);
+    setDates([new Date(), new Date()]);
+  }, [currentTab, fetchMenuData, getAllOrders, getAllStatisticOrders]);
 
   const socket = React.useRef(null);
   const [snackbarOpen, setSnackbarOpen] = React.useState({
@@ -101,6 +133,10 @@ const OwnerDashboardContainer = () => {
       snackbarOpen={snackbarOpen}
       setSnackbarOpen={setSnackbarOpen}
       getCurrentOrders={getAllOrders}
+      statisticData={statisticData}
+      getAllStatisticOrders={getAllStatisticOrders}
+      dates={dates}
+      setDates={setDates}
     />
   );
 };

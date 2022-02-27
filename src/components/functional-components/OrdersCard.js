@@ -214,7 +214,7 @@ export default function OrderCard({
 
   const [hideOnPrint, setHideOnPrint] = React.useState(false);
   const [paymentMethod, setPaymentMethod] = React.useState(
-    mainData.paymentMethond ?? "cash"
+    mainData.paymentMethod ?? "cash"
   );
 
   const [addSpecificInput, setAddSpecificInput] = React.useState({

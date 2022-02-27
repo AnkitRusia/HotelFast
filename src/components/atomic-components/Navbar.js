@@ -40,6 +40,18 @@ const Navbar = ({ type, onClick }) => {
               Orders
             </Button>
           </Box>
+          <Box sx={{ paddingLeft: "25px" }}>
+            <Button
+              color="primary"
+              onClick={() => onClick("statistics")}
+              sx={{
+                border: `1px solid #000000`,
+                color: "#000000",
+              }}
+            >
+              Statistics
+            </Button>
+          </Box>
           <Typography variant="h6" component="div" sx={{ paddingLeft: "25px" }}>
             {type}
           </Typography>
