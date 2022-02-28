@@ -298,7 +298,10 @@ export default function OrderCard({
     const retData = { ...mainData, paymentMethod };
     fetch(`https://bbh-api-v1.herokuapp.com/order/paid/${name}`, {
       method: "POST",
-      body: JSON.stringify(retData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({paymentMethod: retData.paymentMethod}),
     })
       .then((res) => {
         getCurrentOrders();

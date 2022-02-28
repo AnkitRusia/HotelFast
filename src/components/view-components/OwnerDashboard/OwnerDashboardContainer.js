@@ -59,17 +59,20 @@ const OwnerDashboardContainer = () => {
   }, [setOrderData, setCurrentTab]);
 
   const getAllStatisticOrders = React.useCallback(
-    (startDate = new Date(), endDate = new Date()) => {
+    (startDate = new Date().toISOString(), endDate = new Date().toISOString()) => {
       setMenuLoading(true);
-      fetch(`https://bbh-api-v1.herokuapp.com/order/tables`, {
-        method: "GET",
-        // body: JSON.stringify({ startDate, endDate }),
+      fetch(`http://127.0.0.1:8000/order/data`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+         body: JSON.stringify({ startDate: startDate.substring(0, startDate.length-8), endDate: endDate.substring(0, endDate.length-8) }),
       })
         .then((res) => res.json())
         .then((res) => {
           if (res) {
             const currentOrders = {};
-            res.forEach((item) => {
+            res.orders.forEach((item) => {
               currentOrders[item.tablenumber] = item;
             });
             setStatisticData(currentOrders);

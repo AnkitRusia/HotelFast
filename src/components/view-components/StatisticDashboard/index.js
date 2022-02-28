@@ -22,7 +22,7 @@ const StatisticDashboard = ({
       val[1].toDateString() !== dates[1]
     ) {
       setDates(val);
-      getAllStatisticOrders(val[0], val[1]);
+      getAllStatisticOrders(val[0].toISOString(), val[1].toISOString());
     }
   };
 
