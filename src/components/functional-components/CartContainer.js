@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import VegIcon from "../../assets/veg.svg";
+import { Navigate } from "react-router-dom";
 import NonVegIcon from "../../assets/non-veg.svg";
-import { setCartList } from "../../actions/cartActions";
+import { setCartList, setOrderSuccess } from "../../actions/cartActions";
 import { useSelector, useDispatch } from "react-redux";
 import { Box, Typography, Button, ButtonGroup } from "@mui/material";
 
@@ -12,6 +13,7 @@ const toUpperCase = (str) => {
 const CartContainer = ({ socket }) => {
   const dispatch = useDispatch();
   const [ordering, setOrdering] = useState(false);
+  const orderSuccess = useSelector((state) => state.cartReducer.orderSuccess);
   const cartList = useSelector((state) => state.cartReducer.cartList);
 
   const handleOrderClick = async () => {
@@ -42,11 +44,14 @@ const CartContainer = ({ socket }) => {
     const json = await data.json();
     console.log("Response", json);
 
-    setOrdering(false);
-    socket.current.send(tableNo);
-    console.log("Table No sent to WS server", tableNo);
-    dispatch(setCartList([]));
-    alert("Order Placed!");
+    if (json && json.items) {
+      setOrdering(false);
+      socket.current.send(tableNo);
+      console.log("Table No sent to WS server", tableNo);
+      dispatch(setCartList([]));
+      alert("Order Placed!");
+      dispatch(setOrderSuccess(true));
+    }
   };
 
   const onAddClick = (name, price, type, veg) => {
@@ -85,6 +90,10 @@ const CartContainer = ({ socket }) => {
       }
     }
   };
+
+  if (orderSuccess) {
+    return <Navigate to="/orderSuccess" />;
+  }
 
   return (
     <Box
