@@ -105,7 +105,7 @@ const OwnerDashboardContainer = () => {
 
   React.useEffect(() => {
     socket.current = new WebSocket(
-      "wss://bbh-api-v1.herokuapp.com/notification/owner"
+      `wss://bbh-api-v1.herokuapp.com/notification/owner${Math.random()}`
     );
     socket.current.addEventListener("open", function (event) {
       console.log("Connected to the WS Server!");
