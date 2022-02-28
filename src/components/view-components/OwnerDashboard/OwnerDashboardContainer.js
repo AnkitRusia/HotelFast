@@ -64,7 +64,7 @@ const OwnerDashboardContainer = () => {
       endDate = new Date().toISOString()
     ) => {
       setMenuLoading(true);
-      fetch(`http://bbh-api-v1.herokuapp.com/order/data`, {
+      fetch(`https://bbh-api-v1.herokuapp.com/order/data`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
