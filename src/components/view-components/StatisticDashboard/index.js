@@ -2,6 +2,7 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 import StatisticsCard from "../../functional-components/StatisticsCard";
 import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import DateRangePicker from "@mui/lab/DateRangePicker";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -14,6 +15,7 @@ const StatisticDashboard = ({
   getAllStatisticOrders,
   dates,
   setDates,
+  totalAmount,
 }) => {
   const handleChangeDates = (val) => {
     console.log("changing", dates, val);
@@ -35,25 +37,35 @@ const StatisticDashboard = ({
         sx={{ padding: "30px" }}
         justifyContent="flex-end"
       >
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DateRangePicker
-            startText="Start Date"
-            endText="End Date"
-            value={dates}
-            onChange={(newValue) => {
-              handleChangeDates(newValue);
-            }}
-            renderInput={(startProps, endProps) => (
-              <React.Fragment>
-                <TextField {...startProps} />
-                <Box sx={{ mx: 2 }}> to </Box>
-                <TextField {...endProps} />
-              </React.Fragment>
-            )}
-            calendars={1}
-            maxDate={new Date()}
-          />
-        </LocalizationProvider>
+        <Grid item xs={7} container justifyContent="flex-end">
+          {totalAmount && (
+            <Typography variant="h5">
+              <strong>Total Payment:&nbsp;&nbsp;&nbsp;</strong>
+              Rs.&nbsp;{totalAmount}
+            </Typography>
+          )}
+        </Grid>
+        <Grid item xs={5} container justifyContent="flex-end">
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DateRangePicker
+              startText="Start Date"
+              endText="End Date"
+              value={dates}
+              onChange={(newValue) => {
+                handleChangeDates(newValue);
+              }}
+              renderInput={(startProps, endProps) => (
+                <React.Fragment>
+                  <TextField {...startProps} />
+                  <Box sx={{ mx: 2 }}> to </Box>
+                  <TextField {...endProps} />
+                </React.Fragment>
+              )}
+              calendars={1}
+              maxDate={new Date()}
+            />
+          </LocalizationProvider>
+        </Grid>
       </Grid>
       <Grid container item xs={12}>
         {Object.keys(statisticData).map((key) => (

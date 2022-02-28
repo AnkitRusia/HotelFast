@@ -68,7 +68,8 @@ const OwnerDashboardComponent = ({
     ),
     statistics: (
       <StatisticDashboard
-        statisticData={statisticData}
+        statisticData={statisticData.currentOrders ?? {}}
+        totalAmount={statisticData.totalAmount}
         handleClickOnPrint={handleClickOnPrint}
         changer={changer}
         getAllStatisticOrders={getAllStatisticOrders}
