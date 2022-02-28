@@ -1,2 +1,3 @@
 export const SET_CART_LIST = "SET_CART_LIST";
 export const SET_ORDER_SUCCESS = "SET_ORDER_SUCCESS";
+export const SET_PASSWORD = "SET_PASSWORD";

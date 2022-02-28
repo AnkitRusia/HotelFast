@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import {useDispatch, useSelector} from "react-redux"
+import {setPassword} from "../actions/cartActions";
 
 var css = {
   glass: {
@@ -24,8 +26,9 @@ var css = {
 };
 
 function LandingPage() {
+  const dispatch = useDispatch(setPassword());
+  const password = useSelector((state) => state.cartReducer.password);
   const [tableNo, setTableNo] = useState(null);
-  const [password, setPassword] = useState(null);
 
   const handleTableNoChange = () => {
     setTableNo(prompt("Enter your table number : "));
@@ -33,19 +36,19 @@ function LandingPage() {
 
   const handleLogin = async () => {
     const password = prompt("Enter your password : ");
-    setPassword(password);
     const res = await fetch(
       `https://bbh-api-v1.herokuapp.com/servercontrol/server/password?passwd=${password}`
     );
     const json = await res.json();
     console.log("Status : ", json);
+    if (json.status === 200) {dispatch(setPassword(true))}
   };
 
   if (tableNo) {
     return <Navigate to={`/Customer/${tableNo}`} />;
   }
 
-  if (password && password === "admin") {
+  if (password) {
     return <Navigate to="/owner" />;
   }
 

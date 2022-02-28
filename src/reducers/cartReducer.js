@@ -1,8 +1,9 @@
-import { SET_CART_LIST, SET_ORDER_SUCCESS } from "../actions/actionTypes";
+import { SET_CART_LIST, SET_ORDER_SUCCESS, SET_PASSWORD } from "../actions/actionTypes";
 
 const initialState = {
   cartList: [],
   orderSuccess: false,
+  password: false,
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -17,6 +18,11 @@ const cartReducer = (state = initialState, action) => {
         ...state,
         orderSuccess: action.payload,
       };
+    case SET_PASSWORD:
+      return{
+          ...state,
+          password: action.payload,
+      };  
     default:
       return state;
   }
