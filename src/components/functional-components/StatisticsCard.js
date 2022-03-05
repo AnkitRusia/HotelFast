@@ -12,18 +12,9 @@ import Card from "@mui/material/Card";
 import Avatar from "@mui/material/Avatar";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import Box from "@mui/material/Box";
-import RemoveIcon from "@mui/icons-material/Remove";
-import Fab from "@mui/material/Fab";
-import EditIcon from "@mui/icons-material/Edit";
 import Logo from "../../assets/logo2.svg";
 
 const headCells = [
