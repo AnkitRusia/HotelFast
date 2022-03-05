@@ -49,7 +49,7 @@ const Navbar = ({ type, onClick }) => {
                 color: "#000000",
               }}
             >
-              Statistics
+              DATA
             </Button>
           </Box>
           <Typography variant="h6" component="div" sx={{ paddingLeft: "25px" }}>

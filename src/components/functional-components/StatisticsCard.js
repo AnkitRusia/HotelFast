@@ -139,10 +139,10 @@ export default function OrderCard({
   const cardRef = React.useRef(null);
 
   return (
-    <Card ref={cardRef} elevation={11} sx={{ width: "100%", mb: 2 }}>
+    <Card ref={cardRef} elevation={11} sx={{ width: "60%", mb: 2 }}>
       <CardHeader
         title="Bhilai Biriyani Hotel"
-        subheader={new Date().toLocaleDateString()}
+        subheader={Date(mainData.date).slice(0, Date(mainData.date).length-31)}
         avatar={
           <Avatar
             src={Logo}

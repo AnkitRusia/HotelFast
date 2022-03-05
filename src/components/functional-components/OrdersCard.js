@@ -180,7 +180,7 @@ const EnhancedTableToolbar = ({
         color="secondary"
         sx={{ marginLeft: 3, marginRight: 1 }}
       >
-        Paid
+        Paid / Upload
       </Button>
       <Select
         labelId="demo-simple-select-label"

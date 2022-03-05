@@ -41,7 +41,7 @@ const StatisticDashboard = ({
           {totalAmount && (
             <Typography variant="h5">
               <strong>Total Payment:&nbsp;&nbsp;&nbsp;</strong>
-              Rs.&nbsp;{totalAmount}
+              Rs.&nbsp;{Math.round(totalAmount)}
             </Typography>
           )}
         </Grid>
