@@ -139,7 +139,7 @@ export default function OrderCard({
   const cardRef = React.useRef(null);
 
   return (
-    <Card ref={cardRef} elevation={11} sx={{ width: "60%", mb: 2 }}>
+    <Card ref={cardRef} elevation={11} sx={{ width: "500px", mb: 2}}>
       <CardHeader
         title="Bhilai Biriyani Hotel"
         subheader={Date(mainData.date).slice(0, Date(mainData.date).length-31)}
