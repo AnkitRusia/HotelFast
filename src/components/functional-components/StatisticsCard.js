@@ -91,7 +91,7 @@ const EnhancedTableToolbar = ({
           handleClickOnPrint();
         }}
         sx={{ marginLeft: 3, marginRight: 1 }}
-        variant="contained"
+        variant="outlined"
       >
         Print
       </Button>
@@ -138,9 +138,9 @@ export default function OrderCard({
   }
 
   return (
-    <Card ref={cardRef} elevation={11} sx={{ width: "500px", mb: 2}}>
+    <Card ref={cardRef} elevation={11} sx={{ width: "600px", mb: 2}}>
       <CardHeader
-        title="Bhilai Biriyani Hotel"
+        title="Bhilai Biryani House"
         subheader={parseISOString(mainData.date)}
         avatar={
           <Avatar
@@ -158,7 +158,7 @@ export default function OrderCard({
           cardRef={cardRef}
           payWay={mainData.paymentMethod}
         />
-        <TableContainer sx={{ maxHeight: "560px", minHeight: "560px" }}>
+        <TableContainer sx={{ height: "100%", minHeight: "650px", width: "100%", minWidth: "500px" }}>
           <Table stickyHeader aria-labelledby="tableTitle" size="medium">
             <EnhancedTableHead rowCount={data.length} />
             <TableBody>

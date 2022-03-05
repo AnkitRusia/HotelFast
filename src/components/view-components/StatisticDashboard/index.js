@@ -23,7 +23,7 @@ const StatisticDashboard = ({
   };
 
   const handleClickOnPrint = useReactToPrint({
-    content: () => ref?.current,
+    content: () => ref?.current?.current,
   });
 
   const handleChangeDates = (val) => {
@@ -78,7 +78,7 @@ const StatisticDashboard = ({
       </Grid>
       <Grid container item xs={12}>
         {Object.keys(statisticData).map((key) => (
-          <Grid item xs={12} sm={12} md={3} sx={{ padding: "20px" }}>
+          <Grid item xs={12} sm={12} md={6} sx={{ padding: "20px" }}>
             <StatisticsCard
               data={statisticData[key].items}
               mainData={statisticData[key]}

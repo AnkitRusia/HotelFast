@@ -403,10 +403,10 @@ export default function OrderCard({ data, name, getCurrentOrders, mainData }) {
     <Card
       ref={ref}
       elevation={11}
-      sx={{ width: hideOnPrint ? 500 : "100%", mb: 2 }}
+      sx={{ width: hideOnPrint ? 600 : "100%", mb: 2 }}
     >
       <CardHeader
-        title="Bhilai Biriyani Hotel"
+        title="Bhilai Biryani House"
         subheader={new Date().toLocaleDateString()}
         avatar={
           <Avatar
@@ -426,7 +426,7 @@ export default function OrderCard({ data, name, getCurrentOrders, mainData }) {
           setPayWay={handleSelectForPayChange}
           hideOnPrint={hideOnPrint}
         />
-        <TableContainer sx={{ maxHeight: "560px", minHeight: "560px" }}>
+        <TableContainer sx={{ height: "100%", minHeight: "600px", width: "100%", minWidth: "500px" }}>
           <Table stickyHeader aria-labelledby="tableTitle" size="medium">
             <EnhancedTableHead
               hideOnPrint={hideOnPrint}
