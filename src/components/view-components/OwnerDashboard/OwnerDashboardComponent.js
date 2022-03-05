@@ -4,7 +4,6 @@ import Grid from "@mui/material/Grid";
 import Navbar from "../../atomic-components/Navbar";
 import MenuCard from "../../functional-components/MenuCard";
 import OrderCard from "../../functional-components/OrdersCard";
-import { useReactToPrint } from "react-to-print";
 import { CircularProgress, Snackbar, IconButton, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import StatisticDashboard from "./../StatisticDashboard";
@@ -25,15 +24,6 @@ const OwnerDashboardComponent = ({
   dates,
   setDates,
 }) => {
-  const ref = React.useRef(null);
-  const changer = (reference) => {
-    ref.current = reference;
-  };
-
-  const handleClickOnPrint = useReactToPrint({
-    content: () => ref?.current?.current,
-  });
-
   const renderers = {
     orders: (
       <Grid container>
@@ -43,8 +33,6 @@ const OwnerDashboardComponent = ({
               data={tableOrders[key].items}
               mainData={tableOrders[key]}
               name={key}
-              handleClickOnPrint={handleClickOnPrint}
-              changer={changer}
               setLoading={setLoading}
               getCurrentOrders={getCurrentOrders}
             />
@@ -70,8 +58,6 @@ const OwnerDashboardComponent = ({
       <StatisticDashboard
         statisticData={statisticData.currentOrders ?? {}}
         totalAmount={statisticData.totalAmount}
-        handleClickOnPrint={handleClickOnPrint}
-        changer={changer}
         getAllStatisticOrders={getAllStatisticOrders}
         dates={dates}
         setDates={setDates}

@@ -6,17 +6,26 @@ import Typography from "@mui/material/Typography";
 import DateRangePicker from "@mui/lab/DateRangePicker";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import { useReactToPrint } from "react-to-print";
 import Box from "@mui/material/Box";
 
 const StatisticDashboard = ({
   statisticData,
-  handleClickOnPrint,
-  changer,
   getAllStatisticOrders,
   dates,
   setDates,
   totalAmount,
 }) => {
+  const ref = React.useRef(null);
+
+  const changer = (reference) => {
+    ref.current = reference;
+  };
+
+  const handleClickOnPrint = useReactToPrint({
+    content: () => ref?.current,
+  });
+
   const handleChangeDates = (val) => {
     console.log("changing", dates, val);
     if (
@@ -69,7 +78,7 @@ const StatisticDashboard = ({
       </Grid>
       <Grid container item xs={12}>
         {Object.keys(statisticData).map((key) => (
-          <Grid item xs={12} sm={12} md={6} sx={{ padding: "20px" }}>
+          <Grid item xs={12} sm={12} md={3} sx={{ padding: "20px" }}>
             <StatisticsCard
               data={statisticData[key].items}
               mainData={statisticData[key]}

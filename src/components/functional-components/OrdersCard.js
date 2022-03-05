@@ -24,6 +24,7 @@ import Box from "@mui/material/Box";
 import RemoveIcon from "@mui/icons-material/Remove";
 import Fab from "@mui/material/Fab";
 import EditIcon from "@mui/icons-material/Edit";
+import { useReactToPrint } from "react-to-print";
 import Logo from "../../assets/logo2.svg";
 
 const headCells = [
@@ -66,6 +67,38 @@ const headCells = [
   },
 ];
 
+const headCellsForPrint = [
+  {
+    id: "name",
+    numeric: false,
+    label: "Name of Dish",
+  },
+  {
+    id: "type",
+    numeric: true,
+    disablePadding: false,
+    label: "Type",
+  },
+  {
+    id: "quantity",
+    numeric: true,
+    disablePadding: false,
+    label: "Quantity",
+  },
+  {
+    id: "price",
+    numeric: true,
+    disablePadding: false,
+    label: "Item Price",
+  },
+  {
+    id: "price",
+    numeric: true,
+    disablePadding: false,
+    label: "Total Price",
+  },
+];
+
 const headCellsForEdit = [
   {
     id: "name",
@@ -99,15 +132,16 @@ const headCellsForEdit = [
 ];
 
 function EnhancedTableHead(props) {
+  const headCell = props.hideOnPrint ? [...headCellsForPrint] : [...headCells];
   return (
     <TableHead>
       <TableRow>
-        {headCells.map((headCell) => (
+        {headCell.map((headCell) => (
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? "right" : "left"}
             padding="normal"
-            sx={{ fontWeight: "bolder" }}
+            sx={{ fontWeight: "bolder", fontFamily: "SANS-SERIF" }}
           >
             {headCell.label}
           </TableCell>
@@ -126,7 +160,7 @@ function EnhancedTableHeadForEdit(props) {
             key={headCell.id}
             align={headCell.numeric ? "right" : "left"}
             padding="normal"
-            sx={{ fontWeight: "bolder" }}
+            sx={{ fontWeight: "bolder", fontFamily: "SANS-SERIF" }}
           >
             {headCell.label}
           </TableCell>
@@ -138,13 +172,12 @@ function EnhancedTableHeadForEdit(props) {
 
 const EnhancedTableToolbar = ({
   name,
-  cardRef,
-  changer,
   handleClickOnPrint,
   setToPaid,
   setToDelete,
   payWay,
   setPayWay,
+  hideOnPrint,
 }) => {
   return (
     <Toolbar>
@@ -157,31 +190,34 @@ const EnhancedTableToolbar = ({
         {name}
       </Typography>
 
-      <Button
-        onClick={() => setToDelete()}
-        variant="outlined"
-        color="secondary"
-      >
-        Delete
-      </Button>
-      <Button
-        onClick={() => {
-          changer(cardRef);
-          handleClickOnPrint();
-        }}
-        sx={{ marginLeft: 3, marginRight: 1 }}
-        variant="contained"
-      >
-        Print
-      </Button>
-      <Button
-        onClick={() => setToPaid()}
-        variant="outlined"
-        color="secondary"
-        sx={{ marginLeft: 3, marginRight: 1 }}
-      >
-        Paid / Upload
-      </Button>
+      {!hideOnPrint && (
+        <>
+          <Button
+            onClick={() => setToDelete()}
+            variant="outlined"
+            color="secondary"
+          >
+            Delete
+          </Button>
+          <Button
+            onClick={() => {
+              handleClickOnPrint();
+            }}
+            sx={{ marginLeft: 3, marginRight: 1 }}
+            variant="contained"
+          >
+            Print
+          </Button>
+          <Button
+            onClick={() => setToPaid()}
+            variant="outlined"
+            color="secondary"
+            sx={{ marginLeft: 3, marginRight: 1, width: 350 }}
+          >
+            Paid / Upload
+          </Button>{" "}
+        </>
+      )}
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
@@ -200,19 +236,22 @@ EnhancedTableToolbar.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
-export default function OrderCard({
-  data,
-  name,
-  handleClickOnPrint,
-  changer,
-  getCurrentOrders,
-  mainData,
-}) {
+export default function OrderCard({ data, name, getCurrentOrders, mainData }) {
   // Avoid a layout jump when reaching the last page with empty rows.
 
-  console.log("menu 2", data);
-
+  const ref = React.useRef(null);
   const [hideOnPrint, setHideOnPrint] = React.useState(false);
+  const handleClickOnPrint = () => {
+    setHideOnPrint(true);
+  };
+
+  const handleClickOnPrintAction = useReactToPrint({
+    content: () => ref?.current,
+    onAfterPrint: () => {
+      setHideOnPrint(false);
+    },
+  });
+
   const [paymentMethod, setPaymentMethod] = React.useState(
     mainData.paymentMethod ?? "cash"
   );
@@ -301,7 +340,7 @@ export default function OrderCard({
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({paymentMethod: retData.paymentMethod}),
+      body: JSON.stringify({ paymentMethod: retData.paymentMethod }),
     })
       .then((res) => {
         getCurrentOrders();
@@ -352,10 +391,20 @@ export default function OrderCard({
     setPaymentMethod(value);
   };
 
-  const cardRef = React.useRef(null);
+  React.useEffect(() => {
+    if (hideOnPrint) {
+      setTimeout(() => {
+        handleClickOnPrintAction();
+      }, 100);
+    }
+  }, [hideOnPrint, handleClickOnPrintAction]);
 
   return (
-    <Card ref={cardRef} elevation={11} sx={{ width: "100%", mb: 2 }}>
+    <Card
+      ref={ref}
+      elevation={11}
+      sx={{ width: hideOnPrint ? 500 : "100%", mb: 2 }}
+    >
       <CardHeader
         title="Bhilai Biriyani Hotel"
         subheader={new Date().toLocaleDateString()}
@@ -371,51 +420,65 @@ export default function OrderCard({
         <EnhancedTableToolbar
           name={`Table No. : ${name}`}
           handleClickOnPrint={handleClickOnPrint}
-          changer={changer}
-          cardRef={cardRef}
           setToPaid={setToPaid}
           setToDelete={setToDelete}
-          hideOnPrint={hideOnPrint}
-          setHideOnPrint={setHideOnPrint}
           payWay={paymentMethod}
           setPayWay={handleSelectForPayChange}
+          hideOnPrint={hideOnPrint}
         />
         <TableContainer sx={{ maxHeight: "560px", minHeight: "560px" }}>
           <Table stickyHeader aria-labelledby="tableTitle" size="medium">
-            <EnhancedTableHead rowCount={data.length} />
+            <EnhancedTableHead
+              hideOnPrint={hideOnPrint}
+              rowCount={data.length}
+            />
             <TableBody>
               {data.map((row, index) => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.name}>
-                    <TableCell component="th" scope="row">
+                    <TableCell
+                      component="th"
+                      scope="row"
+                      sx={{ fontWeight: "bold" }}
+                    >
                       {row.name}
                     </TableCell>
-                    <TableCell align="right">{row.type ?? "--"}</TableCell>
-                    <TableCell align="right">{row.qty ?? "--"}</TableCell>
-                    <TableCell align="right">{row.price ?? "--"}</TableCell>
-                    <TableCell align="right">
+                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                      {row.type ?? "--"}
+                    </TableCell>
+                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                      {row.qty ?? "--"}
+                    </TableCell>
+                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                      {row.price ?? "--"}
+                    </TableCell>
+                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
                       {row.price * row.qty ?? "--"}
                     </TableCell>
-                    <TableCell align="right">
-                      <Fab
-                        variant="outlined"
-                        color="primary"
-                        sx={{ width: 30, height: 25 }}
-                        onClick={() => setToEdit(index)}
-                      >
-                        <EditIcon />
-                      </Fab>
-                    </TableCell>
-                    <TableCell align="left">
-                      <Fab
-                        variant="outlined"
-                        color="secondary"
-                        sx={{ width: 30, height: 25 }}
-                        onClick={() => setToRemove(index)}
-                      >
-                        <RemoveIcon />
-                      </Fab>
-                    </TableCell>
+                    {!hideOnPrint && (
+                      <>
+                        <TableCell align="right">
+                          <Fab
+                            variant="outlined"
+                            color="primary"
+                            sx={{ width: 30, height: 25 }}
+                            onClick={() => setToEdit(index)}
+                          >
+                            <EditIcon />
+                          </Fab>
+                        </TableCell>
+                        <TableCell align="left">
+                          <Fab
+                            variant="outlined"
+                            color="secondary"
+                            sx={{ width: 30, height: 25 }}
+                            onClick={() => setToRemove(index)}
+                          >
+                            <RemoveIcon />
+                          </Fab>
+                        </TableCell>
+                      </>
+                    )}
                   </TableRow>
                 );
               })}
