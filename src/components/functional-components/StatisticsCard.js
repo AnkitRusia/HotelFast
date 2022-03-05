@@ -113,6 +113,8 @@ EnhancedTableToolbar.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
+
+
 export default function OrderCard({
   data,
   name,
@@ -128,12 +130,18 @@ export default function OrderCard({
   const total = sgst + cgst + service_charge + mainData.amount;
 
   const cardRef = React.useRef(null);
+  function parseISOString(s) {
+    var b = s.split(/\D+/);
+    var parsedDate = new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
+    parsedDate = parsedDate.toString();
+    return parsedDate.slice(0, parsedDate.length-31);
+  }
 
   return (
     <Card ref={cardRef} elevation={11} sx={{ width: "500px", mb: 2}}>
       <CardHeader
         title="Bhilai Biriyani Hotel"
-        subheader={Date(mainData.date).slice(0, Date(mainData.date).length-31)}
+        subheader={parseISOString(mainData.date)}
         avatar={
           <Avatar
             src={Logo}
